@@ -8,7 +8,16 @@ class ACFExtended {
         add_filter( 'acfe/form/load' , __CLASS__ . '::try_custom_html' , 10 , 2 );
         
     }
-
+    
+    /**
+     * try_custom_html
+     * 
+     * Use Timber Template to render the acfe form
+     *
+     * @param  mixed $args
+     * @param  mixed $post_id
+     * @return void
+     */
     public static function try_custom_html( $args , $post_id ) {
 
         if ( !class_exists( 'Timber' ) ) return $args;
@@ -21,8 +30,12 @@ class ACFExtended {
         $content = '';
         
         $context = \Timber::get_context();
-        $context[ 'post_id' ] = $post_id;
+        $context[ 'post' ] = new \Timber\Post();
+        $context[ 'post_id' ] = 'cool';
         $context[ 'form_args' ] = $args;
+
+        $context = apply_filters( "toolbox-acfe-forms/context" , $context , $post_id );
+        $context = apply_filters( "toolbox-acfe-forms/context/${args['name']}" , $context , $post_id );
 
         if ( 
             $args[ 'custom_html_enabled' ]
@@ -30,14 +43,9 @@ class ACFExtended {
 
             $content = \ToolboxACFEForms\Integration\Timber::render_ignore( $twig_template , $context );
             if ( $content ) $args[ 'custom_html' ] = $content; 
-            
-
-            
+           
         }
 
-        $context = \Timber::get_context();
-        $context[ 'post_id' ] = $post_id;
-        $context[ 'form_args' ] = $args;
         $content = \ToolboxACFEForms\Integration\Timber::render_ignore( $twig_template_success , $context );
         if ( $content ) $args[ 'html_updated_message' ] = $content;
 

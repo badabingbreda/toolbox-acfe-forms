@@ -22,15 +22,15 @@ class Timber {
 
     }
 
-    public static function render_ignore( $name ) {
+    public static function render_ignore( $name , $context ) {
 
         ob_start();
         // notice we use root Timber here
-        $data = \Timber::get_context();
+        //$data = \Timber::get_context();
 
         // try to generate without errors
         try {
-            \Timber::render_string( "{% include '${name}' ignore missing %}" , $data );
+            \Timber::render_string( "{% include '${name}' ignore missing %}" , $context );
         } catch( Exception $e ) {
             if ( apply_filters( 'toolbox/twig_error_debug' , true ) ) echo '[ error handling twig template ] ' . $e->getMessage();
         }
