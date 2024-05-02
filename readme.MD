@@ -7,6 +7,12 @@ With Toolbox ACF Extended Forms you can use Twig templates to render the forms. 
 ---
 To get started you obviously need to create a ACF Extended Form. Take note of the "`Form Name`", because that's something that you'll be needing.
 
+## Update after version 0.9
+
+Things have changed after a acfe 0.9 update came out in April 2024. THe HTML tab is gone, so what's listed below isn't correct for newer versions.
+
+If you add the `toolbox-acfe-forms` filters listed below though everything still works as expected. But make sure to update your twig template {field:fieldname} template tags to {render:fieldname} format.
+
 #### **HTML TAB**
 
 Go to the HTML tab and check the "`Override Form render`" box. It's probably a good idea to enter a descriptive message in the "`HTML Form render`" field so that you or anyone else will know that the output is coming from an external plugin. Something like "Will be replaced by Toolbox ACFE Forms".
