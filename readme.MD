@@ -22,3 +22,8 @@ Now for the final and most important step, add the filters that point the form i
 
     add_filter( 'toolbox-acfe-forms/my-form-name' , function( $templatename ) { return 'custom-front-form.twig'; }, 10, 1 );
     add_filter( 'toolbox-acfe-forms/success/my-form-name' , function( $templatename ) { return 'custom-front-form-success-message.twig'; }, 10, 1 );
+
+### version
+|version|date|description|
+|---|---|---|
+|1.1.0|may 5th, 2024|acfe version 0.9 implemented other filter hook and template strings, {render:fieldname} instead of {field:fieldname}|
