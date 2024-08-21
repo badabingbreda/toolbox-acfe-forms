@@ -5,10 +5,22 @@ class ACFExtended {
 
     public function __construct() {
 
-        // acfe version < 0.9
-        add_filter( 'acfe/form/load' , __CLASS__ . '::try_custom_html' , 10 , 2 );
-        // acfe version >= 0.9
-        add_filter( 'acfe/form/load_form' , __CLASS__ . '::modify_render_template' , 10 );
+        add_action( 'init' , __CLASS__ . '::init' );        
+    }
+    
+    public static function init() {
+
+        global $acfe;
+
+        if ( !isset( $acfe )) return;
+
+        if ( version_compare( $acfe->version , '0.9' , '>=' ) ) {
+            // acfe version >= 0.9
+            add_filter( 'acfe/form/load_form' , __CLASS__ . '::modify_render_template' , 10 );
+        } else {
+            // acfe version < 0.9
+            add_filter( 'acfe/form/load' , __CLASS__ . '::try_custom_html' , 10 , 2 );
+        }
         
     }
     
@@ -36,7 +48,7 @@ class ACFExtended {
 
         $content = '';
         
-        $context = \Timber::get_context();
+        $context = self::timber_context();
         $context[ 'post' ] = new \Timber\Post();
         $context[ 'post_id' ] = 'cool';
         $context[ 'form_args' ] = $args;
@@ -83,8 +95,7 @@ class ACFExtended {
         
         $content = '';
         
-        $context = \Timber::get_context();
-        $context[ 'post' ] = new \Timber\Post();
+        $context = self::timber_context();
         $context[ 'post_id' ] = 'cool';
         $context[ 'form_args' ] = $form;
         
@@ -101,7 +112,27 @@ class ACFExtended {
         
         return $form;
 
-    }    
+    } 
+    
+    /**
+     * timber_context
+     * 
+     * return v1.x or v2.x context
+     *
+     * @return void
+     */
+    private static function timber_context() {
+        if (version_compare( \Timber::$version, '2.0.0', '>=' )) {
+            // notice we use root Timber here
+            $context = \Timber::context();
+        } else {
+            // notice we use root Timber here
+            $context = \Timber::get_context();
+            $context[ 'post' ] = new \Timber\Post();
 
+        }
+
+        return $context;
+    }
 }
 

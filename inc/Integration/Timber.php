@@ -6,8 +6,13 @@ class Timber {
     public static function render( $name ) {
 
         ob_start();
-        // notice we use root Timber here
-        $data = \Timber::get_context();
+        if (version_compare( \Timber::$version, '2.0.0', '>=' )) {
+            // notice we use root Timber here
+            $data = \Timber::context();
+        } else {
+            // notice we use root Timber here
+            $data = \Timber::get_context();
+        }
 
         // try to generate without errors
         try {
