@@ -32,4 +32,5 @@ Now for the final and most important step, add the filters that point the form i
 ### version
 |version|date|description|
 |---|---|---|
+|1.2.0|Oct 17th, 2025|add dir constant to plugin autoloader for better compatibility with other plugins
 |1.1.0|may 5th, 2024|acfe version 0.9 implemented other filter hook and template strings, {render:fieldname} instead of {field:fieldname}|

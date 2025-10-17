@@ -10,7 +10,7 @@
  * Plugin Name: Toolbox ACF Extended Forms
  * Plugin URI:  https://www.badabing.nl
  * Description: Use Twig template to render ACF Extended Form
- * Version:     1.1.0
+ * Version:     1.2.0
  * Author:      Badabingbreda
  * Author URI:  https://www.badabing.nl
  * Text Domain: toolboxacfeforms
@@ -33,7 +33,7 @@ if ( defined( 'ABSPATH' ) && ! defined( 'TOOLBOXACFEFORMS_VERION' ) ) {
     }
  }
 
-  define( 'TOOLBOXACFEFORMS_VERSION'   , '1.1.0' );
+  define( 'TOOLBOXACFEFORMS_VERSION'   , '1.2.0' );
   define( 'TOOLBOXACFEFORMS_DIR'     , plugin_dir_path( __FILE__ ) );
   define( 'TOOLBOXACFEFORMS_FILE'    , __FILE__ );
   define( 'TOOLBOXACFEFORMS_URL'     , plugins_url( '/', __FILE__ ) );
@@ -47,7 +47,7 @@ if ( ! class_exists( 'ToolboxACFEForms\Init' ) ) {
  /**
   * The file where the Autoloader class is defined.
   */
-  require_once 'inc/Autoloader.php';
+  require_once TOOLBOXACFEFORMS_DIR . 'inc/Autoloader.php';
   spl_autoload_register( array( new Autoloader(), 'autoload' ) );
 
  $plugin_var = new Init();
